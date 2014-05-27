@@ -1,0 +1,16 @@
+DecimalFormat
+StringBuffer syso循环输出
+
+
+reg:
+[abc] a或 b或 c ,one character
+[abc]? [abc]* [abc]+ 
+\w   \W 汉字
+[+ - * /]    \+\-\*\/
+Pattern.compile();
+p.matcher();
+m.find();
+m.group();
+
+StreamTokenizer结合BufferReader效率比Scanner高
+
