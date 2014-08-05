@@ -3,30 +3,27 @@ import java.util.Scanner;
 /**
  * @author Z.Y.T
  * 
- *         2014年3月23日 下午7:13:50
+ *         2014年5月30日 上午1:21:06
  */
-public class Test1160 {
+public class Test1451 {
 
 	/**
 	 * @param args
 	 */
-	public static int fun(int m, int n) {
-
-		if (m == 0 || n == 1)
+	public static long fun(long n) {
+		if (n == 2)
 			return 1;
-		if (m < 0)
+		if (n <= 1)
 			return 0;
-		return fun(m, n - 1) + fun(m - n, n);
+		return (n - 1) * (fun(n - 1) + fun(n - 2));
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scan = new Scanner(System.in);
-		int t = scan.nextInt();
-		for (int i = 0; i < t; i++) {
-			int m = scan.nextInt();
+		while (scan.hasNext()) {
 			int n = scan.nextInt();
-			System.out.println(fun(m, n));
+			System.out.println(fun(n));
 		}
 		scan.close();
 	}
