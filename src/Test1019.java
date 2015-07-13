@@ -10,56 +10,44 @@ public class Test1019 {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String[] op = { "[*/]", "[+-]" };
+		String[] regx = { "([-]?\\d+[.]?\\d*)([*/])([-]?\\d+[.]?\\d*)", "([-]?\\d+[.]?\\d*)([-+])([-]?\\d+[.]?\\d*)" };
+		DecimalFormat df = new DecimalFormat("0.00");
 		Scanner scan = new Scanner(System.in);
 		while (scan.hasNext()) {
 			String str = scan.nextLine();
 			if (str.equals("0"))
 				break;
-			for (int i = 0; i < op.length; i++) {
-				Pattern pattern = null;
-				if (i == 0)
-					pattern = Pattern.compile("(\\d+(\\.\\d+)*) " + op[i]
-							+ " (\\d+(\\.\\d+)*)");
-				else
-					pattern = Pattern.compile("(\\-)? (\\d+(\\.\\d+)*) " + op[i]
-							+ " (\\d+(\\.\\d+)*)");
+			str = str.replaceAll(" ", "");
+			for (int i = 0; i < regx.length; i++) {
+				Pattern pattern = Pattern.compile(regx[i]);
 				Matcher m = pattern.matcher(str);
-
 				while (m.find()) {
-					System.out.println(m.group());
-					System.out.println(m.groupCount());
-					for (int j = 0; j < m.groupCount(); j++) {
-						System.out.println(j + "--" + m.group(j));
+					double left = Double.parseDouble(m.group(1));
+					String op = m.group(2);
+					double right = Double.parseDouble(m.group(3));
+					double result = 0;
+					switch (op) {
+					case "*":
+						result = left * right;
+						break;
+					case "/":
+						result = left / right;
+						break;
+					case "-":
+						result = left - right;
+						break;
+					case "+":
+						result = left + right;
+						break;
 					}
-					double a = Double.parseDouble(m.group(1).replace(" ", ""));
-					double b = Double.parseDouble(m.group(3).replace(" ", ""));
-					char c = m.group().charAt(m.group().indexOf(" ") + 1);
-					switch (c) {
-					case '*':
-						a = a * b;
-						break;
-					case '/':
-						a = a / b;
-						break;
-					case '+':
-						a = a + b;
-						break;
-					case '-':
-						a = a - b;
-						break;
-					default:
-						System.out.println("error");
-					}
-					str = str.replace(m.group(), a + "");
+					str = str.replace(m.group(), df.format(result));
+					// System.out.println(str);
+					// if the string changes, the matcher should be reset;
 					m.reset(str);
 				}
 			}
-			DecimalFormat df = new DecimalFormat("0.00");
-			str = df.format(Double.parseDouble(str));
-			System.out.println(str);
+			System.out.println(df.format(Double.parseDouble(str)));
 		}
 		scan.close();
-		
 	}
 }
