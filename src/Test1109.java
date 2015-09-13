@@ -7,38 +7,32 @@ import java.util.Scanner;
  * 
  *         2014年4月13日 下午6:09:08
  */
-class Vertex {
-	int value;
-	Vertex next;
-}
-
 public class Test1109 {
 
 	/**
 	 * @param args
 	 */
-	public static boolean bfs(Vertex[] v) {
-		Queue<Vertex> queue = new LinkedList<Vertex>();
-		queue.add(v[0]);
-		int[] visited = new int[v.length];
+	public static boolean bfs(int[][] matrix) {
+		Queue<Integer> queue = new LinkedList<Integer>();
+		int[] visited = new int[matrix.length];
+
+		queue.offer(0);
 		while (!queue.isEmpty()) {
-			Vertex temp = queue.poll();
-			if (visited[temp.value - 1] == 1)
-				continue;
-			temp = v[temp.value - 1];
-			visited[temp.value - 1] = 1;
-			while (temp.next != null) {
-				queue.add(temp.next);
-				temp = temp.next;
+			int vertex = queue.poll();
+			for (int i = 0; i < matrix.length; i++) {
+				if (visited[i] == 0 && matrix[vertex][i] == 1) {
+					visited[i] = 1;
+					queue.offer(i);
+				}
 			}
 		}
 
-		boolean connected = true;
+		boolean connected = false;
 		for (int i = 0; i < visited.length; i++) {
-			if (visited[i] == 0) {
-				connected = false;
+			if (visited[i] == 0)
 				break;
-			}
+			if (i == visited.length - 1)
+				connected = true;
 		}
 		return connected;
 	}
@@ -47,27 +41,20 @@ public class Test1109 {
 		// TODO Auto-generated method stub
 		Scanner scan = new Scanner(System.in);
 		while (scan.hasNext()) {
-			int vertex = scan.nextInt();
-			int edge = scan.nextInt();
-			if (vertex == 0)
+			int n = scan.nextInt();
+			int m = scan.nextInt();
+			if (n == 0)
 				break;
-			Vertex[] vertexs = new Vertex[vertex];
-			for (int i = 0; i < vertexs.length; i++) {
-				vertexs[i] = new Vertex();
-				vertexs[i].value = i + 1;
-			}
-			for (int i = 0; i < edge; i++) {
-				int start = scan.nextInt();
-				int end = scan.nextInt();
-				Vertex v = new Vertex();
-				v.value = end;
-				Vertex temp = vertexs[start - 1];
-				while (temp.next != null)
-					temp = temp.next;
-				temp.next = v;
+			int[][] matrix = new int[n][n];
+
+			for (int i = 0; i < m; i++) {
+				int start = scan.nextInt() - 1;
+				int end = scan.nextInt() - 1;
+				matrix[start][end] = 1;
+				matrix[end][start] = 1;
 			}
 
-			boolean connected = bfs(vertexs);
+			boolean connected = bfs(matrix);
 			System.out.println(connected ? "YES" : "NO");
 		}
 		scan.close();

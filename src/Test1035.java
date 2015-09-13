@@ -115,5 +115,4 @@ public class Test1035 {
 		}
 		scan.close();
 	}
-
 }
