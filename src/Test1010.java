@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Test1010 {
 
 	/**
-	 * @param args
+	 * @param
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
