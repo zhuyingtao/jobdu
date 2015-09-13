@@ -7,9 +7,8 @@ public class Test1016 {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] primeNo = { 1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,
-				43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107,
-				109, 113 };
+		int[] primeNo = { 1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89,
+				97, 101, 103, 107, 109, 113 };
 		Scanner scan = new Scanner(System.in);
 		while (scan.hasNext()) {
 			String a = scan.next();

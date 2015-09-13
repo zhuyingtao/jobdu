@@ -2,46 +2,84 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * @author zyt
- * 
- *         2014年9月23日 下午2:41:55
+ * @ClassName Test1035
+ * @Description TODO
+ * @author Zhu Yingtao
+ * @date 2015年7月2日 下午2:03:13
  */
 public class Test1035 {
 
-	static class Person {
-		char name;
-		Person parent1;
-		Person parent2;
-		ArrayList<Person> children;
+	static class Relation {
+		People root;
 
-		public Person(char name) {
-			this.name = name;
+		public Relation(People root) {
+			// TODO Auto-generated constructor stub
+			this.root = root;
 		}
 
-		public void addChild(Person child) {
-			if (children == null)
-				children = new ArrayList<Person>();
-			children.add(child);
+		public People getPeople(People p, char id) {
+			if (p.id == id) {
+				return p;
+			} else if (p.parent1 != null) {
+				return getPeople(p.parent1, id);
+			} else if (p.parent2 != null) {
+				return getPeople(p.parent2, id);
+			} else
+				return null;
 		}
 
-		public void addParent(Person parent) {
-			if (parent1 == null)
-				parent1 = parent;
-			else if (parent2 == null)
-				parent2 = parent;
+		public boolean addRelation(char a, char b, char c) {
+			boolean succ = false;
+			People p = this.getPeople(root, a);
+			if (p != null) {
+				if (b != '-') {
+					People par1 = this.getPeople(root, b);
+					if (par1 == null)
+						p.parent1 = new People(b);
+					else
+						p.parent1 = par1;
+				}
+				if (c != '-') {
+					People par2 = this.getPeople(root, c);
+					if (par2 == null)
+						p.parent2 = new People(c);
+					else
+						p.parent2 = par2;
+				}
+				if (p.parent1 == root || p.parent2 == root)
+					root = p;
+				succ = true;
+			}
+			return succ;
+		}
+
+		public String findRelation(char a, char b) {
+			String relation = "-";
+
+			return relation;
+		}
+	}
+
+	static class People {
+		char id;
+		People parent1;
+		People parent2;
+
+		public People(char id) {
+			// TODO Auto-generated constructor stub
+			this.id = id;
 		}
 
 		@Override
 		public boolean equals(Object obj) {
 			// TODO Auto-generated method stub
-			if (((Person) obj).name == this.name)
-				return true;
-			else
-				return false;
+			return this.id == ((People) obj).id;
 		}
 	}
 
 	/**
+	 * @Title: main
+	 * @Description: TODO
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -50,38 +88,31 @@ public class Test1035 {
 		while (scan.hasNext()) {
 			int n = scan.nextInt();
 			int m = scan.nextInt();
-			// tooooooooooooooooooooobaaaaddddddd!!!
-			ArrayList<Person> persons = new ArrayList<Person>();
+			if (n == 0 && m == 0)
+				break;
+			ArrayList<Relation> relations = new ArrayList<Relation>();
 			for (int i = 0; i < n; i++) {
-				String str = scan.next();
-				Person child = new Person(str.charAt(0));
-				Person parent1 = str.charAt(1) == '-' ? null : new Person(
-						str.charAt(1));
-				Person parent2 = str.charAt(2) == '-' ? null : new Person(
-						str.charAt(2));
-				if (!persons.contains(child))
-					persons.add(child);
-				if (parent1 != null && !persons.contains(parent1))
-					persons.add(parent1);
-				if (parent2 != null && !persons.contains(parent2))
-					persons.add(parent2);
-				child = persons.get(persons.indexOf(child));
-				if (parent1 != null) {
-					parent1 = persons.get(persons.indexOf(parent1));
+				String sa = scan.next();
+				char a = sa.charAt(0);
+				char b = sa.charAt(1);
+				char c = sa.charAt(2);
+				boolean succ = false;
+				for (int j = 0; j < relations.size(); j++) {
+					succ = relations.get(i).addRelation(a, b, c);
+					if (succ)
+						break;
 				}
-				if (parent2 != null) {
-					parent2 = persons.get(persons.indexOf(parent2));
+				if (!succ) {
+					Relation re = new Relation(new People(a));
+					re.addRelation(a, b, c);
+					relations.add(re);
 				}
-				child.addParent(parent1);
-				child.addParent(parent2);
-				if (parent1 != null)
-					parent1.addChild(child);
-				if (parent2 != null)
-					parent2.addChild(child);
 			}
-			for (int i = 0; i < m; i++) {
 
+			for (int i = 0; i < m; i++) {
+				String sb = scan.next();
 			}
 		}
+		scan.close();
 	}
 }
