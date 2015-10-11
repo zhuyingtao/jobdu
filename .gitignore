@@ -1,3 +1,7 @@
-/.metadata
-/.settings
-/bin
+.metadata
+.settings
+.idea
+.classpath
+.project
+JobduOL.iml
+bin
