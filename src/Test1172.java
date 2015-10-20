@@ -3,31 +3,28 @@ import java.util.Scanner;
 
 /**
  * @author Z.Y.T
- * 
- *         2014Äê4ÔÂ14ÈÕ ÏÂÎç7:09:16
+ *         <p>
+ *         2014å¹´4æœˆ14æ—¥ ä¸‹åˆ7:09:16
  */
 public class Test1172 {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Scanner scan = new Scanner(System.in);
-		while (scan.hasNext()) {
-			int n = scan.nextInt();
-			int[] array = new int[n];
-			for (int i = 0; i < array.length; i++) {
-				array[i] = scan.nextInt();
-			}
-			int sum = 0;
-			for (int i = 1; i < array.length; i++) {
-				Arrays.sort(array, i - 1, array.length);
-				array[i] = array[i - 1] + array[i];
-				sum += array[i];
-			}
-			System.out.println(sum);
-		}
-		scan.close();
-	}
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        while (scan.hasNext()) {
+            int n = scan.nextInt();
+            int[] array = new int[n];
+            for (int i = 0; i < array.length; i++) {
+                array[i] = scan.nextInt();
+            }
+            int sum = 0;
+            for (int i = 1; i < array.length; i++) {
+                Arrays.sort(array, i - 1, array.length);
+                array[i] = array[i - 1] + array[i];
+                sum += array[i];
+            }
+            System.out.println(sum);
+        }
+        scan.close();
+    }
 }

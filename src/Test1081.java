@@ -1,74 +1,69 @@
 import java.util.Scanner;
 
 /**
- * @ClassName Test1081
- * @Description TODO
  * @author Zhu Yingtao
- * @date 2015Äê6ÔÂ30ÈÕ ÏÂÎç2:33:41
+ * @date 2015å¹´6æœˆ30æ—¥ ä¸‹åˆ2:33:41
  */
 public class Test1081 {
 
-	static int mod = 10000;
+    static int mod = 10000;
 
-	static class Matrix {
-		int a00;
-		int a01;
-		int a10;
-		int a11;
+    static class Matrix {
+        int a00;
+        int a01;
+        int a10;
+        int a11;
 
-		public Matrix(int a00, int a01, int a10, int a11) {
-			this.a00 = a00;
-			this.a01 = a01;
-			this.a10 = a10;
-			this.a11 = a11;
-		}
+        public Matrix(int a00, int a01, int a10, int a11) {
+            this.a00 = a00;
+            this.a01 = a01;
+            this.a10 = a10;
+            this.a11 = a11;
+        }
 
-		public Matrix multiply(Matrix m) {
-			int t00 = (a00 * m.a00 + a01 * m.a10) % mod;
-			int t01 = (a00 * m.a01 + a01 * m.a11) % mod;
-			int t10 = (a10 * m.a00 + a11 * m.a10) % mod;
-			int t11 = (a10 * m.a01 + a11 * m.a11) % mod;
-			return new Matrix(t00, t01, t10, t11);
-		}
-	}
+        public Matrix multiply(Matrix m) {
+            int t00 = (a00 * m.a00 + a01 * m.a10) % mod;
+            int t01 = (a00 * m.a01 + a01 * m.a11) % mod;
+            int t10 = (a10 * m.a00 + a11 * m.a10) % mod;
+            int t11 = (a10 * m.a01 + a11 * m.a11) % mod;
+            return new Matrix(t00, t01, t10, t11);
+        }
+    }
 
-	/**
-	 * @Title: main
-	 * @Description: TODO
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Scanner scan = new Scanner(System.in);
-		while (scan.hasNext()) {
-			int a0 = scan.nextInt();
-			int a1 = scan.nextInt();
-			int p = scan.nextInt();
-			int q = scan.nextInt();
-			int k = scan.nextInt();
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        Scanner scan = new Scanner(System.in);
+        while (scan.hasNext()) {
+            int a0 = scan.nextInt();
+            int a1 = scan.nextInt();
+            int p = scan.nextInt();
+            int q = scan.nextInt();
+            int k = scan.nextInt();
 
-			if (k == 0) {
-				System.out.println(a0 % 10000);
-			} else if (k == 1) {
-				System.out.println(a1 % 10000);
-			} else {
-				Matrix base = new Matrix(p, q, 1, 0);
-				Matrix result = power(base, k - 1); // ¾ØÕóµÄk-1´ÎÃİ
-				int an = (result.a00 * a1 + result.a01 * a0) % mod;
-				System.out.println(an);
-			}
-		}
-		scan.close();
-	}
+            if (k == 0) {
+                System.out.println(a0 % 10000);
+            } else if (k == 1) {
+                System.out.println(a1 % 10000);
+            } else {
+                Matrix base = new Matrix(p, q, 1, 0);
+                Matrix result = power(base, k - 1); // çŸ©é˜µçš„k-1æ¬¡å¹‚
+                int an = (result.a00 * a1 + result.a01 * a0) % mod;
+                System.out.println(an);
+            }
+        }
+        scan.close();
+    }
 
-	public static Matrix power(Matrix m, int n) { // ¿ìËÙÃİËã·¨
-		Matrix result = new Matrix(1, 0, 0, 1); // ³õÊ¼µ¥Î»¾ØÕó
-		while (n != 0) { // ½«Ãİ×ª»¯Îª¶ş½øÖÆ
-			if ((n & 1) == 1) // ¿´×îµÍÎ»ÊÇ·ñÎª1£¬ÈôÊÇ1±íÊ¾Òª³Ë
-				result = result.multiply(m);
-			m = m.multiply(m);// Éú³ÉĞÂÄ¿±ê¾ØÕó
-			n = n >> 1; // ÓÒÒÆ1Î»
-		}
-		return result;
-	};
+    public static Matrix power(Matrix m, int n) { // å¿«é€Ÿå¹‚ç®—æ³•
+        Matrix result = new Matrix(1, 0, 0, 1); // åˆå§‹å•ä½çŸ©é˜µ
+        while (n != 0) { // å°†å¹‚è½¬åŒ–ä¸ºäºŒè¿›åˆ¶
+            if ((n & 1) == 1) // çœ‹æœ€ä½ä½æ˜¯å¦ä¸º1ï¼Œè‹¥æ˜¯1è¡¨ç¤ºè¦ä¹˜
+                result = result.multiply(m);
+            m = m.multiply(m);// ç”Ÿæˆæ–°ç›®æ ‡çŸ©é˜µ
+            n = n >> 1; // å³ç§»1ä½
+        }
+        return result;
+    }
+
+    ;
 }

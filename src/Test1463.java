@@ -3,82 +3,77 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
+ * @author Zhu Yingtao
  * @ClassName Test1463
  * @Description TODO
- * @author Zhu Yingtao
- * @date 2015Äê7ÔÂ2ÈÕ ÉÏÎç10:07:24
+ * @date 2015å¹´7æœˆ2æ—¥ ä¸Šåˆ10:07:24
  */
 public class Test1463 {
 
-	static class Recruitments {
-		List<Integer> starts;
-		int end;
+    static class Recruitments {
+        List<Integer> starts;
+        int end;
 
-		public Recruitments(int end) {
-			this.end = end;
-			starts = new ArrayList<Integer>();
-		}
+        public Recruitments(int end) {
+            this.end = end;
+            starts = new ArrayList<Integer>();
+        }
 
-		public void add(int start) {
-			starts.add(start);
-		}
+        public void add(int start) {
+            starts.add(start);
+        }
 
-		public boolean check(int lastEnd) {
-			boolean suitable = false;
-			for (int i = 0; i < starts.size(); i++) {
-				if (starts.get(i) >= lastEnd) {
-					suitable = true;
-					break;
-				}
-			}
-			return suitable;
-		}
+        public boolean check(int lastEnd) {
+            boolean suitable = false;
+            for (int i = 0; i < starts.size(); i++) {
+                if (starts.get(i) >= lastEnd) {
+                    suitable = true;
+                    break;
+                }
+            }
+            return suitable;
+        }
 
-		public boolean isEmpty() {
-			return starts.isEmpty();
-		}
-	}
+        public boolean isEmpty() {
+            return starts.isEmpty();
+        }
+    }
 
-	/**
-	 * @Title: main
-	 * @Description: TODO
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Scanner scan = new Scanner(System.in);
-		while (scan.hasNext()) {
-			Recruitments[] recruit = new Recruitments[25];
-			for (int i = 0; i < recruit.length; i++) {
-				recruit[i] = new Recruitments(i);
-			}
-			int n = scan.nextInt();
-			for (int i = 0; i < n; i++) {
-				int start = scan.nextInt();
-				int end = scan.nextInt();
-				recruit[end].add(start);
-			}
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        Scanner scan = new Scanner(System.in);
+        while (scan.hasNext()) {
+            Recruitments[] recruit = new Recruitments[25];
+            for (int i = 0; i < recruit.length; i++) {
+                recruit[i] = new Recruitments(i);
+            }
+            int n = scan.nextInt();
+            for (int i = 0; i < n; i++) {
+                int start = scan.nextInt();
+                int end = scan.nextInt();
+                recruit[end].add(start);
+            }
 
-			int end = 0;
-			int count = 0;
-			for (int i = 0; i < recruit.length; i++) {
-				if (!recruit[i].isEmpty()) {
-					end = i;
-					count++;
-					break;
-				}
-			}
+            int end = 0;
+            int count = 0;
+            for (int i = 0; i < recruit.length; i++) {
+                if (!recruit[i].isEmpty()) {
+                    end = i;
+                    count++;
+                    break;
+                }
+            }
 
-			for (int i = end + 1; i < recruit.length; i++) {
-				if (i < recruit.length && recruit[i].check(end)) {
-					end = i;
-					count++;
-				}
-			}
-			System.out.println(count);
-		}
-		scan.close();
-	}
+            for (int i = end + 1; i < recruit.length; i++) {
+                if (i < recruit.length && recruit[i].check(end)) {
+                    end = i;
+                    count++;
+                }
+            }
+            System.out.println(count);
+        }
+        scan.close();
+    }
 }
 
 // import java.io.IOException;
