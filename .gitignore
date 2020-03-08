@@ -1,5 +1,6 @@
-.idea
-bin
+/.idea
+/bin
 .classpath
 .project
 JobduOL.iml
+.DS_Store
